@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.infoshareacademy.jjdd3.AssertionsDemoTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec - in com.infoshareacademy.jjdd3.AssertionsDemoTest

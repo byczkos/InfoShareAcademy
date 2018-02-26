@@ -1,0 +1,8 @@
+com/infoshareacademy/jjdd3/config/DatabaseConfigFactory.class
+com/infoshareacademy/jjdd3/config/DatabaseConfig.class
+com/infoshareacademy/jjdd3/env/EnvironmentReader.class
+com/infoshareacademy/jjdd3/FahrenheitConverter.class
+com/infoshareacademy/jjdd3/env/IEnvironmentReader.class
+com/infoshareacademy/jjdd3/Person.class
+com/infoshareacademy/jjdd3/env/EnvironmentPrinter.class
+com/infoshareacademy/jjdd3/Calculator.class

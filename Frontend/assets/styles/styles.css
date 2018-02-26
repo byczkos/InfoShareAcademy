@@ -1,0 +1,26 @@
+h1 {
+    color: red;
+}
+
+.blog-post-text {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+p.blog-post-text {
+    color: fuchsia;
+}
+div.blog-post-text {
+    color: green;
+}
+
+p.blog-post-text,
+div.blog-post-text {
+    font-size: larger;
+}
+/*.row * {*/
+    /*border: 1px solid black;*/
+/*}*/
+/*.col * {*/
+    /*color: darkblue;*/
+/*}*/
