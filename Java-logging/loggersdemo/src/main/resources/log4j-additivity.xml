@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console-Root">
+            <PatternLayout pattern="%red{%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n}"/>
+        </Console>
+        <Console name="Console-Package">
+            <PatternLayout pattern="%blue{%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n}"/>
+        </Console>
+        <Console name="Console-Class">
+            <PatternLayout pattern="%green{%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n}"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console-Root"/>
+        </Root>
+        <Logger name="com.isa.workshops.log4j.additivity" level="info">
+            <AppenderRef ref="Console-Package"/>
+        </Logger>
+        <Logger name="com.isa.workshops.log4j.additivity.AdditivityLoggerExample" level="info">
+            <AppenderRef ref="Console-Class"/>
+        </Logger>
+    </Loggers>
+</Configuration>
