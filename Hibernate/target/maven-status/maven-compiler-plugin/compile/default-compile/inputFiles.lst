@@ -1,3 +1,12 @@
 /home/dawidbyczkowski/development/jjdd3-materialy-hibernate/src/main/java/com/infoshareacademy/web/StudentServlet.java
+/home/dawidbyczkowski/development/jjdd3-materialy-hibernate/src/main/java/com/infoshareacademy/web/ComputerServlet.java
 /home/dawidbyczkowski/development/jjdd3-materialy-hibernate/src/main/java/com/infoshareacademy/dao/StudentDao.java
 /home/dawidbyczkowski/development/jjdd3-materialy-hibernate/src/main/java/com/infoshareacademy/model/Student.java
+/home/dawidbyczkowski/development/jjdd3-materialy-hibernate/src/main/java/com/infoshareacademy/dao/AddressDao.java
+/home/dawidbyczkowski/development/jjdd3-materialy-hibernate/src/main/java/com/infoshareacademy/model/Computer.java
+/home/dawidbyczkowski/development/jjdd3-materialy-hibernate/src/main/java/com/infoshareacademy/dao/CourseDao.java
+/home/dawidbyczkowski/development/jjdd3-materialy-hibernate/src/main/java/com/infoshareacademy/model/Course.java
+/home/dawidbyczkowski/development/jjdd3-materialy-hibernate/src/main/java/com/infoshareacademy/dao/ComputerDao.java
+/home/dawidbyczkowski/development/jjdd3-materialy-hibernate/src/main/java/com/infoshareacademy/model/Address.java
+/home/dawidbyczkowski/development/jjdd3-materialy-hibernate/src/main/java/com/infoshareacademy/web/CourseServlet.java
+/home/dawidbyczkowski/development/jjdd3-materialy-hibernate/src/main/java/com/infoshareacademy/web/AddressServlet.java

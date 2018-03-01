@@ -2,7 +2,10 @@ package com.infoshareacademy.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Set;
+
+import static java.util.stream.Collectors.joining;
 
 
 @Entity
@@ -26,6 +29,7 @@ public class Address {
     @OneToMany(mappedBy = "address", fetch = FetchType.EAGER)
     private Set<Student> students;
 
+
     public Address() {
     }
 
@@ -33,6 +37,7 @@ public class Address {
         this.street = street;
         this.city = city;
     }
+
 
     public Long getId() {
         return id;
@@ -64,6 +69,7 @@ public class Address {
         sb.append("id=").append(id);
         sb.append(", street='").append(street).append('\'');
         sb.append(", city='").append(city).append('\'');
+        sb.append(", students=").append(students.stream().map(Student::getSurname).collect(joining(", ")));
         sb.append('}');
         return sb.toString();
     }

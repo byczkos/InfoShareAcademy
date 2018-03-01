@@ -1,15 +1,17 @@
 package com.infoshareacademy.web;
 
 import com.infoshareacademy.dao.AddressDao;
+import com.infoshareacademy.dao.CourseDao;
 import com.infoshareacademy.dao.StudentDao;
 import com.infoshareacademy.dao.ComputerDao;
 import com.infoshareacademy.model.Address;
 import com.infoshareacademy.model.Computer;
+import com.infoshareacademy.model.Course;
 import com.infoshareacademy.model.Student;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.List;
+import java.util.*;
 import javax.inject.Inject;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -34,6 +36,9 @@ public class StudentServlet extends HttpServlet {
     @Inject
     private AddressDao addressDao;
 
+    @Inject
+    private CourseDao courseDao;
+
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -47,15 +52,22 @@ public class StudentServlet extends HttpServlet {
         Computer computer1 = new Computer("Mac Book", "MacOS");
         Computer computer2 = new Computer("Dell Inspiron", "Ubuntu");
 
+        Course course1 = new Course("JJDD3");
+        Course course2 = new Course("JJDD2");
+
+        Set<Course> courseSet = new HashSet<>(Arrays.asList(course1, course2));
+
+        courseDao.save(course1);
+        courseDao.save(course2);
+
         computerDao.save(computer1);
         computerDao.save(computer2);
 
         addressDao.save(address1);
         addressDao.save(address2);
 
-        studentDao.save(new Student("Michal","Michałowski", LocalDate.parse("1991-05-08"), computer1, address1));
-        studentDao.save(new Student("Marek", "Markowski", LocalDate.parse("1990-05-03"), computer2, address2));
-
+        studentDao.save(new Student("Michal","Michałowski", LocalDate.parse("1991-05-08"), computer1, address1, courseSet));
+        studentDao.save(new Student("Marek", "Markowski", LocalDate.parse("1990-05-03"), computer2, address1, courseSet));
 
         LOG.info("System time zone is: {}", ZoneId.systemDefault());
     }
@@ -79,6 +91,8 @@ public class StudentServlet extends HttpServlet {
             deleteStudent(req, resp);
         } else if (action.equals("update")) {
             updateStudent(req, resp);
+        } else if (action.equals("addToCourse")) {
+            addStudentToCourse(req, resp);
         } else {
             resp.getWriter().write("Unknown action.");
         }
@@ -102,6 +116,11 @@ public class StudentServlet extends HttpServlet {
             LOG.info("Found Computer with id {}: {}", computerId, computer);
             existingStudent.setComputer(computer);
 
+            final Long addressId = Long.parseLong(req.getParameter("address_id"));
+            final Address address = addressDao.findById(addressId);
+            LOG.info("Found Address with id {}: {}", addressId, address);
+            existingStudent.setAddress(address);
+
             studentDao.update(existingStudent);
             LOG.info("Student object updated: {}", existingStudent);
         }
@@ -109,6 +128,32 @@ public class StudentServlet extends HttpServlet {
         // Return all persisted objects
         findAll(req, resp);
     }
+
+    private void addStudentToCourse(HttpServletRequest req, HttpServletResponse resp)
+         throws IOException {
+                final Long id = Long.parseLong(req.getParameter("id"));
+                LOG.info("Updating Student with id = {}", id);
+
+                        final Student existingStudent = studentDao.findById(id);
+                if (existingStudent == null) {
+                        LOG.info("No Student found for id = {}, nothing to be updated", id);
+                    } else {
+                        final Long courseId = Long.parseLong(req.getParameter("courseId"));
+                        final Course course = courseDao.findById(courseId);
+
+                        Set<Course> courses = new HashSet<>();
+                        courses.add(course);
+                        courses.addAll(existingStudent.getCourses());
+
+                                existingStudent.setCourses(courses);
+
+                                studentDao.update(existingStudent);
+                        LOG.info("Student object updated: {}", existingStudent);
+                    }
+
+                        // Return all persisted objects
+                                findAll(req, resp);
+            }
 
     private void addStudent(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
@@ -122,6 +167,11 @@ public class StudentServlet extends HttpServlet {
         final Computer computer = computerDao.findById(computerId);
         LOG.info("Found Computer with id {}: {}", computerId, computer);
         p.setComputer(computer);
+
+        final Long addressId = Long.parseLong(req.getParameter("addressId"));
+        final Address address = addressDao.findById(addressId);
+        LOG.info("Found Computer with id {}: {}", addressId, address);
+        p.setAddress(address);
 
         studentDao.save(p);
         LOG.info("Saved a new Student object: {}", p);
@@ -141,7 +191,15 @@ public class StudentServlet extends HttpServlet {
     }
 
     private void findAll(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        final List<Student> result = studentDao.findAll();
+
+        List<Student> result;
+
+        String dateString = req.getParameter("date");
+                if (dateString != null) {
+                        result = studentDao.findAllBornAfter(LocalDate.parse(dateString));
+                    } else {
+                        result = studentDao.findAll();
+                    }
         LOG.info("Found {} objects", result.size());
         for (Student p : result) {
             resp.getWriter().write(p.toString() + "\n");

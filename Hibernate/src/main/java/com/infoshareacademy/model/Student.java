@@ -1,11 +1,18 @@
 package com.infoshareacademy.model;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
+
+import static java.util.stream.Collectors.joining;
 
 @Entity
 @Table(name = "STUDENTS")
+@NamedQuery(name = "bornAfter",
+        query = "SELECT s FROM Student s WHERE s.dateOfBirth >= :date ORDER BY s.dateOfBirth DESC")
 public class Student {
 
     @Id
@@ -33,6 +40,12 @@ public class Student {
     @JoinColumn(name = "address_id")
     private Address address;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "STUDENTS_TO_COURSES",
+        joinColumns = @JoinColumn(name = "STUDENT_ID", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "COURSE_ID", referencedColumnName = "id"))
+    private Set<Course> courses;
+
 
     public Student() {
 
@@ -46,12 +59,21 @@ public class Student {
         this.computer = computer;
     }
 
-    public Student(String name, String surname, LocalDate dateOfBirth, Computer computer, Address address) {
+    public Student(String name, String surname, LocalDate dateOfBirth, Computer computer, Address address, Set<Course> courses) {
         this.name = name;
         this.surname = surname;
         this.dateOfBirth = dateOfBirth;
         this.computer = computer;
         this.address = address;
+        this.courses = courses;
+    }
+
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
     }
 
     public Address getAddress() {
@@ -103,6 +125,7 @@ public class Student {
         sb.append(", dateOfBirth=").append(dateOfBirth);
         sb.append(", computer=").append(computer);
         sb.append(", address=").append(address);
+        sb.append(", courses=").append(courses.stream().map(Course::getName).collect(joining(", ")));
         sb.append('}');
         return sb.toString();
     }
