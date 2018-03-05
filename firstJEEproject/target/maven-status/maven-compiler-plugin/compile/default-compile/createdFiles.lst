@@ -1,6 +1,7 @@
 com/isa/usersengine/Main.class
 com/isa/usersengine/domain/Gender.class
 com/isa/usersengine/cdi/RandomUserCDIRequestDao.class
+com/isa/usersengine/interceptors/AddUserInterceptor.class
 com/isa/usersengine/servlets/WelcomeUserServlet.class
 com/isa/usersengine/servlets/RandomUserServlet.class
 com/isa/usersengine/servlets/AddUserServlet.class
@@ -17,4 +18,6 @@ com/isa/usersengine/domain/User.class
 com/isa/usersengine/cdi/MaxPulseBean.class
 com/isa/usersengine/cdi/RandomUserCDIApplicationDaoBean.class
 com/isa/usersengine/filters/SalaryIncrementFilter.class
+com/isa/usersengine/servlets/UsersListServlet.class
 com/isa/usersengine/servlets/FindUserByIdServlet.class
+com/isa/usersengine/interceptors/LogInterceptor.class

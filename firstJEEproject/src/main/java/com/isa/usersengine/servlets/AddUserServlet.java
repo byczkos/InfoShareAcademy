@@ -1,8 +1,10 @@
 package com.isa.usersengine.servlets;
 
+import com.isa.usersengine.dao.UsersRepositoryDao;
 import com.isa.usersengine.dao.UsersRepositoryDaoBean;
 import com.isa.usersengine.domain.User;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +15,10 @@ import java.io.PrintWriter;
 
 @WebServlet("/add-user")
 public class AddUserServlet extends HttpServlet {
+
+    @EJB
+    UsersRepositoryDao usersRepositoryDao;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -53,12 +59,13 @@ public class AddUserServlet extends HttpServlet {
         user.setLogin(login);
         user.setPassword(password);
 
-        (new UsersRepositoryDaoBean()).addUser(user);
+        usersRepositoryDao.addUser(user);
+        resp.sendRedirect("/users-list");
 
-        printWriter.write("Uzytkownik został dodany!\n\n");
-        printWriter.write("ID: "+ user.getId() + "\n");
-        printWriter.write("Name: "+ user.getName() + "\n");
-        printWriter.write("Login: "+ user.getLogin() + "\n");
-        printWriter.write("Age: "+ user.getAge() + "\n");
+//        printWriter.write("Uzytkownik został dodany!\n\n");
+//        printWriter.write("ID: "+ user.getId() + "\n");
+//        printWriter.write("Name: "+ user.getName() + "\n");
+//        printWriter.write("Login: "+ user.getLogin() + "\n");
+//        printWriter.write("Age: "+ user.getAge() + "\n");
     }
 }
