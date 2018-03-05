@@ -16,4 +16,5 @@ com/isa/usersengine/cdi/RandomUserCDISessionDaoBean.class
 com/isa/usersengine/domain/User.class
 com/isa/usersengine/cdi/MaxPulseBean.class
 com/isa/usersengine/cdi/RandomUserCDIApplicationDaoBean.class
+com/isa/usersengine/filters/SalaryIncrementFilter.class
 com/isa/usersengine/servlets/FindUserByIdServlet.class

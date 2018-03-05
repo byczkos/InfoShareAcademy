@@ -17,10 +17,9 @@ import java.util.Map;
 
 @WebServlet("welcome-user")
 public class WelcomeUserServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
         String name = req.getParameter("name");
 
         if(name == null || name.isEmpty()) {
@@ -28,8 +27,10 @@ public class WelcomeUserServlet extends HttpServlet {
             return;
         }
 
+        // data model do freemarkera
         Map<String, Object> dataModel = new HashMap<>();
         dataModel.put("name", name);
+        dataModel.put("salary", req.getAttribute("salary"));
 
         Template template = TemplateProvider.createTemplate(getServletContext(), "welcome-user.ftlh");
 
@@ -41,7 +42,6 @@ public class WelcomeUserServlet extends HttpServlet {
         }
 
 
-//
 //        resp.setContentType("text/html;charset=UTF-8");
 //        printWriter.write("<DOCTYPE html>");
 //        printWriter.write("<html>");
