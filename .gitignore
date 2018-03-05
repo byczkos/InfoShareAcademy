@@ -1,1 +1,8 @@
 *.pdf
+.git/
+.idea/
+target/
+out/
+*.iml
+*.class
+*.properties
