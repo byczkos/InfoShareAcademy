@@ -12,6 +12,10 @@
             <li><p>Login: ${user.login}</p></li>
             <li><p>Gender: ${user.gender}</p></li>
             <li><p>Age: ${user.age}</p></li>
+            <#if (user.imageURL)??>
+                <img src="${user.imageURL}" width="200"/>
+            </#if>
+            <p><a href="/edit-user?id=${user.id}">Edit user</a> </p>
             <#sep><p>=======================</p></#sep>
         </#items>
     </ul>

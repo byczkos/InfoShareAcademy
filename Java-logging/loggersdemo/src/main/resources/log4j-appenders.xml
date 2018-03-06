@@ -14,7 +14,7 @@
         </Async>
     </Appenders>
     <Loggers>
-        <logger name="file-appender" level="TRACE">
+        <logger name="file-appender" level="INFO">
             <AppenderRef ref="Async"/>
         </logger>
     </Loggers>
