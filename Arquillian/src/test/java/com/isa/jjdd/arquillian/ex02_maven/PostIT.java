@@ -9,7 +9,7 @@ public class PostIT {
     @Test
     public void shouldMakeAnyLongtimeOperation() throws Exception {
         // given
-        sut.lazyTime = 1;
+//        sut.lazyTime = 1;
 
         // when
         sut.snailPostOperation();
