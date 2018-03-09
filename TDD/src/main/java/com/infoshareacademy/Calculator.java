@@ -9,4 +9,11 @@ public class Calculator {
         }
         return result;
     }
+    public Integer sub(Integer[] params) {
+        Integer result = params[0];
+        for (int i = 1; i < params.length ; i++) {
+            result -= params[i];
+        }
+        return result;
+    }
 }

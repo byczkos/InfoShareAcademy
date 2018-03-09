@@ -38,4 +38,35 @@ public class CalculatorTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    public void substractIncorrectValues() {
+
+        Calculator calculator = new Calculator();
+        //GIVEN
+        Integer a = 2;
+        Integer b = 4;
+
+        Integer expected = a - b;
+
+        //WHEN
+        Integer result = calculator.sub(new Integer[]{a, b});
+
+        //THEN
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void substractManyValues() {
+        Calculator calculator = new Calculator();
+
+        //GIVEN
+        Integer[] params = {5, 3, 2, 1};
+        Integer expected = 5 - 3 - 2 - 1;
+
+        //WHEN
+        Integer result = calculator.sub(params);
+
+        //THEN
+        assertEquals(expected, result);
+    }
 }
