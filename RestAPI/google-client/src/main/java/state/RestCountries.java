@@ -18,9 +18,11 @@ public class RestCountries {
 
         // wypisuje wszystkie miasta
         response.close();
-        for (int i = 0; i < 55 ; i++) {
-            System.out.println(restResponse.getRestResponse().getResult().get(i).name);
-        }
+        restResponse.getRestResponse().getResult().forEach(s -> System.out.println(s.id + " "+s.country + " " + s.name));
+//
+//        for (int i = 0; i <  ; i++) {
+//            System.out.println(restResponse.getRestResponse().getResult().get(i).name);
+//        }
     }
 
 }
