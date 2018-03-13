@@ -19,6 +19,7 @@ public class GoogleTranslate {
     }
 
     public String translationFor(String input) {
+
         Client client = ClientBuilder.newClient();
 
         Form paramsForm = new Form();
@@ -34,8 +35,6 @@ public class GoogleTranslate {
         response.close();
         return data.getData().getTranslations().get(0).getTranslatedText();
     }
-
-
 
 }
 
