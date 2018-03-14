@@ -22,6 +22,9 @@ public class User implements Serializable {
         this.credentials = credentials;
     }
 
+    public User() {
+    }
+
     private int generateId() {
         Random r = new Random();
         return r.nextInt(Integer.MAX_VALUE);

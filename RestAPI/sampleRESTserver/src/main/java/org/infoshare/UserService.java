@@ -48,7 +48,6 @@ public class UserService {
     @GET
     @Path("/user-agent/")
     @Produces(MediaType.TEXT_PLAIN)
-
     public Response clientReader(@HeaderParam("user-agent") String agent) {
         return Response.ok(agent).build();
     }
@@ -57,7 +56,6 @@ public class UserService {
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
-
     public Response usersList() {
 
         if (us.getBase().isEmpty() || us.getBase() == null) {
@@ -70,12 +68,26 @@ public class UserService {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-
-    public Response findUser(@PathParam("id") int id) {
+    public Response findUserById(@PathParam("id") int id) {
        if (us.getBase().containsKey(id)) {
            return Response.ok(us.getBase().get(id)).build();
        } else {
            return Response.status(404).build();
        }
+    }
+
+    // dodawanie uzytkownika do listy
+
+    @PUT
+    @Path("/add")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response putUser(User user) {
+        if (user == null) {
+            return Response.status(400).build();
+        } else {
+            us.add(user);
+            return usersList();
+        }
     }
 }
