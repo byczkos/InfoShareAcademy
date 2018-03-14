@@ -11,6 +11,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.io.InvalidObjectException;
 
 @Path("/users")
 public class UserService {
@@ -88,6 +89,18 @@ public class UserService {
         } else {
             us.add(user);
             return usersList();
+        }
+    }
+    // usuwanie uzytkownika z listy
+    @DELETE
+    @Path("/delete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteUser(@QueryParam("id") Integer id) throws InvalidObjectException {
+        if (us.getBase().containsKey(id)) {
+            us.remove(id);
+            return usersList();
+        } else {
+            return Response.status(404).build();
         }
     }
 }
