@@ -12,6 +12,7 @@ public class User implements Serializable {
     private String name;
     private String surname;
     private int id;
+    @JsonIgnore
     private Credentials credentials;
 
     public User(String name, String surname, Credentials credentials) {
