@@ -1,5 +1,6 @@
 package org.infoshare;
 
+import org.infoshare.model.User;
 import org.infoshare.model.UserStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,4 +67,15 @@ public class UserService {
         }
     }
 
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+
+    public Response findUser(@PathParam("id") int id) {
+       if (us.getBase().containsKey(id)) {
+           return Response.ok(us.getBase().get(id)).build();
+       } else {
+           return Response.status(404).build();
+       }
+    }
 }
