@@ -12,6 +12,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.io.InvalidObjectException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Path("/users")
 public class UserService {
@@ -102,5 +107,24 @@ public class UserService {
         } else {
             return Response.status(404).build();
         }
+    }
+
+    @POST
+    @Path("/login")
+    public Response login(@FormParam("username") String username, @FormParam("pass") String pass) throws URISyntaxException {
+        Map<String, User> usersByLogin = new HashMap<>();
+        usersByLogin = us.getBase().values()
+                .stream()
+                .filter(x -> x.getCredentials() !=null)
+                .filter(x -> x.getCredentials().getPassword() != null)
+                .collect(Collectors.toMap(x -> x.getCredentials().getUsername(), x -> x));
+        if (usersByLogin.containsKey(username)) {
+            if (usersByLogin.get(username).getCredentials().getPassword().equals(pass)) {
+                return Response.ok().build();
+            } else {
+                return Response.ok("Zly login i haslo").build();
+            }
+        }
+        return Response.temporaryRedirect(URI.create("http://www.wp.pl")).build();
     }
 }
